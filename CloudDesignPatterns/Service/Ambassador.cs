@@ -11,6 +11,19 @@ namespace CloudDesignPatterns.Service
 {
     public class Ambassador : IAmbassador
     {
+        /*
+         * In microservice world an application need to call multiple microservices. Using Ambassador
+         * pattern we can implement resiliency in a cantralized library. 
+         * Main purpose of this layer
+         * 1. Receive request from client application
+         * 2. Determine the location of remote service and route request appropriately
+         * 3. check for circuit breaker, retry, timeout etc. policies 
+         * 4. Enridh request header with tracing and other informations
+         * 5. measuring reqtest latancy 
+         * 6. encypt and send request using mutual certificate based authentication 
+         * 7. log request latancy
+         * 8. return response to client
+         */ 
         private HttpClient _httpClient;
 
         public Ambassador(HttpClient httpClient)
