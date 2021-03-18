@@ -10,6 +10,7 @@ using CloudDesignPatterns.Service;
 using Polly;
 using System.Net.Http;
 using Polly.Extensions.Http;
+using CloudDesignPatterns.Model;
 
 namespace CloudDesignPatterns
 {
@@ -19,9 +20,12 @@ namespace CloudDesignPatterns
         {
             services.AddHttpClient<IAmbassador, Ambassador>(client => {
                 //Url will come from configuration 
-                client.BaseAddress = new Uri("https://localhost:44352/");
+                client.BaseAddress = new Uri("https://localhost:44355/");
             }).AddPolicyHandler(GetRetryPolicy())
             .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddScoped<ICache<WeatherForecast>, Caching<WeatherForecast>>();
+            services.AddScoped<CacheAside<string, IEnumerable<WeatherForecast>>, CustomerMSCacheAside>();
         }
 
         static IAsyncPolicy<HttpResponseMessage> GetRetryPolicy()

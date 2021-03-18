@@ -1,6 +1,6 @@
 using System;
 
-namespace CloudAPI
+namespace CloudDesignPatterns.Model
 {
     public class WeatherForecast
     {
